@@ -1,0 +1,23 @@
+{
+  "todos": [
+    {
+      "text": "Прлл",
+      "completed": true,
+      "createdAt": 1787300654520,
+      "id": "oHTRdXX8h6c"
+    },
+    {
+      "text": "sdfsdfsadf",
+      "completed": false,
+      "createdAt": 1787334118886,
+      "id": "IoYRp_nc6TA"
+    },
+    {
+      "text": "Зїсти кашу",
+      "completed": false,
+      "createdAt": 1787780700915,
+      "id": "cZHyIRs0IY0"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
