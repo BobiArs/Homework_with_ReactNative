@@ -7,8 +7,9 @@ const OWNER = "bobi_it_new"; // Ваш логін на expo.dev
 
 // Базова конфігурація Production
 const APP_NAME = "Todo App by Bobi";
-const BUNDLE_IDENTIFIER = `com.${OWNER}.rntodolistbobi`;
-const PACKAGE_NAME = `com.${OWNER}.rntodolistbobi`;
+const CLEAN_OWNER = OWNER.replace(/_/g, "");
+const BUNDLE_IDENTIFIER = `com.${CLEAN_OWNER}.rntodolistbobi`;
+const PACKAGE_NAME = `com.${CLEAN_OWNER}.rntodolistbobi`;
 const SCHEME = "rntodolistbobi";
 
 // Шляхи до базових іконок
@@ -37,7 +38,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     icon: dynamicConfig.icon,
     scheme: dynamicConfig.scheme,
     userInterfaceStyle: "automatic",
-    newArchEnabled: true,
 
     ios: {
       supportsTablet: true,
@@ -48,7 +48,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     android: {
       package: dynamicConfig.packageName,
       versionCode: 1,
-      edgeToEdgeEnabled: true,
       adaptiveIcon: {
         backgroundColor: "#E6F4FE",
         foregroundImage: dynamicConfig.adaptiveIconForeground,

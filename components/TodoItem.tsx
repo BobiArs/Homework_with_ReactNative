@@ -133,6 +133,7 @@ export function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
 
 const styles = StyleSheet.create({
   todoItem: {
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     padding: 14,
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
   },
   todoText: {
     flex: 1,
+    flexShrink: 1,
     fontSize: 15,
     fontWeight: "500",
   },
@@ -162,6 +164,7 @@ const styles = StyleSheet.create({
   },
   todoEditInput: {
     flex: 1,
+    flexShrink: 1,
     fontSize: 15,
     paddingVertical: 6,
     paddingHorizontal: 10,

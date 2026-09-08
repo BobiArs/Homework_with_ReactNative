@@ -78,9 +78,11 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 20,
     width: "100%",
+    maxWidth: 600,
   },
   input: {
     flex: 1,
+    flexShrink: 1,
     paddingVertical: 12,
     paddingHorizontal: 16,
     fontSize: 16,

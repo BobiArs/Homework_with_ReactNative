@@ -43,18 +43,20 @@ export default function IndexScreen() {
           </Text>
         </View>
       ) : (
-        <TodoList
-          todos={todos}
-          onToggle={async (id) => {
-            await toggleTodo({ id: id as any });
-          }}
-          onDelete={async (id) => {
-            await deleteTodo({ id: id as any });
-          }}
-          onEdit={async (id, text) => {
-            await updateTodo({ id: id as any, text });
-          }}
-        />
+        <View style={styles.listWrapper}>
+          <TodoList
+            todos={todos}
+            onToggle={async (id) => {
+              await toggleTodo({ id: id as any });
+            }}
+            onDelete={async (id) => {
+              await deleteTodo({ id: id as any });
+            }}
+            onEdit={async (id, text) => {
+              await updateTodo({ id: id as any, text });
+            }}
+          />
+        </View>
       )}
     </SafeAreaView>
   );
@@ -96,6 +98,8 @@ const styles = StyleSheet.create({
   },
   listWrapper: {
     flex: 1,
+    width: "100%",
+    maxWidth: 600,
   },
   centerContainer: { flex: 1, justifyContent: "center" },
 });

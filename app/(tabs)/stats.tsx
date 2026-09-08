@@ -125,7 +125,13 @@ const styles = StyleSheet.create({
     maxWidth: 600,
     marginBottom: 20,
   },
-  card: { width: "48%", padding: 16, borderRadius: 12, borderWidth: 1 },
+  card: {
+    flex: 1,
+    minWidth: "45%",
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
   cardValue: { fontSize: 24, fontWeight: "700", marginVertical: 4 },
   progressCard: {
     width: "100%",
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
   progressTitle: { fontSize: 16, fontWeight: "600", marginBottom: 10 },
   barBg: { height: 10, borderRadius: 5, overflow: "hidden" },
   barFill: { height: "100%", borderRadius: 5 },
-  cardLabel: { fontSize: 13 },
+  cardLabel: { fontSize: 13, flexShrink: 1 },
   subtitle: { fontSize: 14, marginTop: 4, marginBottom: 20 },
   content: { padding: 20 },
   centerContainer: { flex: 1, justifyContent: "center", alignItems: "center" },

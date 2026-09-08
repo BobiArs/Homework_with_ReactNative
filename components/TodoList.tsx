@@ -34,6 +34,7 @@ export function TodoList({
 
   return (
     <FlatList
+      style={styles.list}
       data={todos}
       keyExtractor={(item) => item._id ?? item.id ?? String(item.createdAt)}
       renderItem={({ item }) => (
@@ -66,12 +67,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   emptyText: {
     fontSize: 16,
     textAlign: "center",
   },
+  list: {
+    width: "100%",
+    flex: 1,
+  },
   listContent: {
     paddingBottom: 24,
+    width: "100%",
   },
 });

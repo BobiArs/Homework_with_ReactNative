@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
+    maxWidth: 600,
   },
   titleGroup: {
     flexDirection: "row",

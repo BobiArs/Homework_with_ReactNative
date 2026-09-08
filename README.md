@@ -1,6 +1,6 @@
 # Практичне завдання: Todo App 4.0 — Мульти-середовищна конфігурація, EAS Build, OTA оновлення та Публікація
 
-У цьому фінальному практичному завданні ви підготуєте свій мобільний додаток (**`rn-todo-list`**) до **професійного релізу та публікації**. 
+У цьому фінальному практичному завданні ви підготуєте свій мобільний додаток (**`rn-todo-list`**) до **професійного релізу та публікації**.
 
 Ви навчитеся налаштовувати професійну інфраструктуру мобільної розробки: динамічну конфігурацію середовищ (**Development**, **Preview**, **Production**), хмарні збірки через **EAS Build**, генерацію автономних інсталяційних файлів (APK/IPA), доставку швидких бездротових оновлень (**EAS Update / OTA**) та деплой серверної логіки **Convex** у Production.
 
@@ -69,16 +69,19 @@ rn-todo-list/
 ### Крок 1: Встановлення інструментів та ініціалізація EAS
 
 1. Переконайтеся, що у вас встановлено глобальний інструмент **EAS CLI**:
+
    ```bash
    npm install -g eas-cli
    ```
 
 2. Авторизуйтеся у вашому акаунті на [expo.dev](https://expo.dev):
+
    ```bash
    eas login
    ```
 
 3. Зробіть резервну копію файлу `app.json`:
+
    ```bash
    cp app.json app.json.backup
    ```
@@ -87,7 +90,7 @@ rn-todo-list/
    ```bash
    eas project:init
    ```
-   *Команда зв'яже ваш локальний проєкт з хмарою Expo і виведе `projectId`.*
+   _Команда зв'яже ваш локальний проєкт з хмарою Expo і виведе `projectId`._
 
 ---
 
@@ -200,7 +203,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
 // Функція генерації налаштувань для кожного середовища
 export const getDynamicAppConfig = (
-  environment: "development" | "preview" | "production"
+  environment: "development" | "preview" | "production",
 ) => {
   if (environment === "development") {
     return {
@@ -307,27 +310,31 @@ cp assets/images/android-icon-foreground.png assets/images/icons/android-icon-fo
 В особистому кабінеті на [expo.dev](https://expo.dev) перейдіть до проєкту `rn-todo-list` → **Configuration** → **Environment variables** і додайте змінні для кожного середовища:
 
 #### 1. Для середовища `Development`:
-| Name | Value | Type |
-| :--- | :--- | :--- |
-| `APP_ENV` | `development` | String |
+
+| Name                     | Value                               | Type   |
+| :----------------------- | :---------------------------------- | :----- |
+| `APP_ENV`                | `development`                       | String |
 | `EXPO_PUBLIC_CONVEX_URL` | Ваш Convex dev URL (з `.env.local`) | String |
-| `CONVEX_DEPLOYMENT` | Ваш Convex dev deployment ID | String |
+| `CONVEX_DEPLOYMENT`      | Ваш Convex dev deployment ID        | String |
 
 #### 2. Для середовища `Preview`:
-| Name | Value | Type |
-| :--- | :--- | :--- |
-| `APP_ENV` | `preview` | String |
+
+| Name                     | Value                                             | Type   |
+| :----------------------- | :------------------------------------------------ | :----- |
+| `APP_ENV`                | `preview`                                         | String |
 | `EXPO_PUBLIC_CONVEX_URL` | Той самий Convex URL (або окремий staging деплой) | String |
-| `CONVEX_DEPLOYMENT` | Той самий deployment ID | String |
+| `CONVEX_DEPLOYMENT`      | Той самий deployment ID                           | String |
 
 #### 3. Для середовища `Production`:
-| Name | Value | Type |
-| :--- | :--- | :--- |
-| `APP_ENV` | `production` | String |
-| `EXPO_PUBLIC_CONVEX_URL` | Ваш Production Convex URL | String |
-| `CONVEX_DEPLOYMENT` | Ваш Production deployment ID | String |
+
+| Name                     | Value                        | Type   |
+| :----------------------- | :--------------------------- | :----- |
+| `APP_ENV`                | `production`                 | String |
+| `EXPO_PUBLIC_CONVEX_URL` | Ваш Production Convex URL    | String |
+| `CONVEX_DEPLOYMENT`      | Ваш Production deployment ID | String |
 
 Стягніть змінні в локальний файл:
+
 ```bash
 eas env:pull --environment development
 ```
@@ -375,28 +382,28 @@ npx convex deploy
 
 ## ⚡ Шпаргалка основних команд
 
-| Дія | Команда |
-| :--- | :--- |
-| **Локальна розробка** | `npx convex dev` + `npx expo start -c` |
-| **Збірка Dev Client** | `eas build --platform android --profile development` |
-| **Збірка автономного Preview APK** | `eas build --platform android --profile preview` |
-| **Збірка Production релізу** | `eas build --platform all --profile production` |
+| Дія                                   | Команда                                                                             |
+| :------------------------------------ | :---------------------------------------------------------------------------------- |
+| **Локальна розробка**                 | `npx convex dev` + `npx expo start -c`                                              |
+| **Збірка Dev Client**                 | `eas build --platform android --profile development`                                |
+| **Збірка автономного Preview APK**    | `eas build --platform android --profile preview`                                    |
+| **Збірка Production релізу**          | `eas build --platform all --profile production`                                     |
 | **Відправка OTA оновлення в Preview** | `eas update --platform all --environment preview --channel preview --message "..."` |
-| **Стягнути змінні з EAS** | `eas env:pull --environment development` |
-| **Деплой Convex у хмару** | `npx convex deploy` |
+| **Стягнути змінні з EAS**             | `eas env:pull --environment development`                                            |
+| **Деплой Convex у хмару**             | `npx convex deploy`                                                                 |
 
 ---
 
 ## 💯 Критерії оцінювання (100 балів)
 
-| Критерій | Бали | Опис |
-| :--- | :---: | :--- |
-| **1. Динамічна конфігурація `app.config.ts`** | **25 б.** | Реалізовано динамічну зміну назви, Bundle ID / Package Name (`.dev`, `.preview`) та схем діплінків залежно від `APP_ENV`. |
-| **2. Налаштування `eas.json` та EAS Environment Variables** | **20 б.** | Описано профілі `development`, `preview`, `production` з відповідними каналами, налаштовано змінні в EAS Dashboard. |
-| **3. Іконки для різних середовищ** | **15 б.** | Створено окремі версії іконок з позначками `DEV` та `PREVIEW` у папці `assets/images/icons/`. |
-| **4. Успішна автономна Preview збірка** | **25 б.** | Згенеровано збірку профілю `preview` (APK або iOS build), додаток самостійно працює без Metro Bundler та підключається до Convex. |
-| **5. Демонстрація OTA оновлення (EAS Update)** | **15 б.** | Успішно відправлено та продемонстровано застосування бездротового оновлення через команду `eas update`. |
-| **РАЗОМ** | **100 б.** | |
+| Критерій                                                    |    Бали    | Опис                                                                                                                              |
+| :---------------------------------------------------------- | :--------: | :-------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Динамічна конфігурація `app.config.ts`**               | **25 б.**  | Реалізовано динамічну зміну назви, Bundle ID / Package Name (`.dev`, `.preview`) та схем діплінків залежно від `APP_ENV`.         |
+| **2. Налаштування `eas.json` та EAS Environment Variables** | **20 б.**  | Описано профілі `development`, `preview`, `production` з відповідними каналами, налаштовано змінні в EAS Dashboard.               |
+| **3. Іконки для різних середовищ**                          | **15 б.**  | Створено окремі версії іконок з позначками `DEV` та `PREVIEW` у папці `assets/images/icons/`.                                     |
+| **4. Успішна автономна Preview збірка**                     | **25 б.**  | Згенеровано збірку профілю `preview` (APK або iOS build), додаток самостійно працює без Metro Bundler та підключається до Convex. |
+| **5. Демонстрація OTA оновлення (EAS Update)**              | **15 б.**  | Успішно відправлено та продемонстровано застосування бездротового оновлення через команду `eas update`.                           |
+| **РАЗОМ**                                                   | **100 б.** |                                                                                                                                   |
 
 ---
 
@@ -408,3 +415,11 @@ npx convex deploy
    - Прикріпіть скріншот списку збірок з консолі [expo.dev/builds](https://expo.dev).
    - Прикріпіть 1-2 скріншоти встановленого Preview додатку на телефоні з кастомною іконкою `PREVIEW`.
 3. Надішліть посилання на репозиторій на перевірку.
+
+##
+
+Посилання на збірку:https://expo.dev/accounts/bobi_it_new/projects/home-work_2/builds/97549813-989d-4704-818f-b28404cdfa5e
+Установку:https://expo.dev/accounts/bobi_it_new/projects/home-work_2/builds/97549813-989d-4704-818f-b28404cdfa5e
+
+Додаток на телефоні встановлен і все функціонує:
+![](assets/images/5260669411402653880.jpg)
