@@ -1,56 +1,208 @@
-# Welcome to your Expo app 👋
+# Інструкція 1: Налаштування проєкту Modern Chat та Tailwind CSS (NativeWind)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Покрокова інструкція з початкового налаштування React Native проєкту для додатку **Modern Chat** за допомогою **Expo Router** та **Tailwind CSS (NativeWind v4)**.
 
-## Get started
+---
 
-1. Install dependencies
+## Крок 1: Створення проєкту
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Створіть новий Expo-проєкт із шаблоном TypeScript:
 
 ```bash
-npm run reset-project
+npx create-expo-app@latest modern-chat
+cd modern-chat
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+## Крок 2: Встановлення та налаштування Tailwind CSS (NativeWind v4)
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### 2.1 Встановлення необхідних пакетів
 
-## Learn more
+```bash
+npm install nativewind tailwindcss
+npx expo install babel-preset-expo
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 2.2 Ініціалізація конфігурації Tailwind
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx tailwindcss init
+```
 
-## Join the community
+### 2.3 Налаштування `tailwind.config.js`
 
-Join our community of developers creating universal apps.
+Відкрийте файл `tailwind.config.js` у корені проєкту та оновіть його вміст:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```javascript
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // Шляхи до всіх директорій з компонентами та екранами
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#3B82F6", // Акцентний синій для повідомлень
+        primaryDark: "#1D4ED8",
+        secondary: "#1E293B", // Темний Slate для карток і бульбашок співрозмовника
+        surface: "#0F172A", // Глибокий темний фон
+        surfaceLight: "#334155", // Межі та розділювачі
+        textMuted: "#94A3B8", // Приглушений текст
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+### 2.4 Налаштування `babel.config.js`
+
+> ⚠️ **Важливо:** Файл конфігурації Babel обов'язково повинен мати розширення `.js` (не `.ts`).
+
+Створіть або оновіть `babel.config.js` у корені проєкту:
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+  };
+};
+```
+
+### 2.5 Налаштування `metro.config.js`
+
+Створіть файл `metro.config.js` у корені проєкту:
+
+```javascript
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativeWind(config, { input: "./global.css" });
+```
+
+### 2.6 Створення `global.css`
+
+Створіть файл `global.css` у корені проєкту:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### 2.7 Декларація типів TypeScript (`nativewind-env.d.ts`)
+
+Створіть файл `nativewind-env.d.ts` у корені проєкту, щоб TypeScript підтримував властивість `className`:
+
+```typescript
+/// <reference types="nativewind/types" />
+```
+
+---
+
+## Крок 3: Створення структури папок та файлів
+
+Організуйте структуру проєкту:
+
+```
+modern-chat/
+├── app/
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── (auth)/
+│   │   ├── _layout.tsx
+│   │   └── login.tsx
+│   ├── (app)/
+│   │   ├── _layout.tsx
+│   │   └── index.tsx
+│   ├── chat/
+│   │   └── [id].tsx
+│   ├── settings/
+│   │   └── [id].tsx
+│   ├── new-room.tsx
+│   └── profile.tsx
+├── constants/
+│   └── theme.ts
+├── components/
+│   └── InitialLayout.tsx
+├── babel.config.js
+├── global.css
+├── metro.config.js
+├── nativewind-env.d.ts
+└── tailwind.config.js
+```
+
+---
+
+## Крок 4: Створення базових файлів
+
+### 4.1 `constants/theme.ts`
+
+```typescript
+// constants/theme.ts
+export const COLORS = {
+  primary: "#3B82F6",
+  primaryDark: "#1D4ED8",
+  secondary: "#1E293B",
+  background: "#0A0F1D",
+  surface: "#0F172A",
+  surfaceLight: "#334155",
+  white: "#FFFFFF",
+  textMuted: "#94A3B8",
+  danger: "#EF4444",
+} as const;
+```
+
+### 4.2 Кореневий макет `app/_layout.tsx`
+
+```tsx
+// app/_layout.tsx
+import "../global.css";
+
+import { Stack } from "expo-router";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+export default function RootLayout() {
+  return (
+    <SafeAreaProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </SafeAreaProvider>
+  );
+}
+```
+
+### 4.3 Точка входу `app/index.tsx`
+
+```tsx
+// app/index.tsx
+import { Redirect } from "expo-router";
+
+export default function Index() {
+  return <Redirect href="/(app)" />;
+}
+```
+
+---
+
+## Крок 5: Запуск проєкту
+
+Оскільки було налаштовано збирачі (Babel і Metro), запустіть сервер з прапорцем очищення кешу:
+
+```bash
+npx expo start -c
+```
+
+---
+
+## Результат
+
+- Налаштована файлова структура для додатку чату з динамічною маршрутизацією
+- Повністю підключений Tailwind CSS (NativeWind v4) з палітрою теми
+- Готова база для підключення Convex та авторизації
