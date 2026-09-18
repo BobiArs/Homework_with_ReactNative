@@ -1,0 +1,62 @@
+import { authTables } from "@convex-dev/auth/server";
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  ...authTables,
+
+  // Користувачі
+  users: defineTable({
+    name: v.optional(v.string()),
+    image: v.optional(v.string()),
+    email: v.optional(v.string()),
+    username: v.optional(v.string()), // Унікальний нікнейм користувача (@username)
+    bio: v.optional(v.string()), // Статус або короткий опис профілю
+    avatarStorageId: v.optional(v.id("_storage")),
+  }).index("by_email", ["email"]),
+
+  // Чат-кімнати
+  chatRooms: defineTable({
+    title: v.string(),
+    description: v.optional(v.string()),
+    creatorId: v.id("users"),
+    lastMessage: v.optional(v.string()),
+    lastMessageAt: v.optional(v.number()),
+  }).index("by_creator", ["creatorId"]),
+
+  // Повідомлення в кімнатах
+  messages: defineTable({
+    chatRoomId: v.id("chatRooms"),
+    senderId: v.id("users"),
+    senderName: v.string(),
+    senderPhoto: v.optional(v.string()),
+    content: v.optional(v.string()), // Текст повідомлення (тепер опціональний)
+    imageUrl: v.optional(v.string()), // Публічне посилання на зображення
+    storageId: v.optional(v.id("_storage")), // ID файлу в Convex Storage
+    isEdited: v.optional(v.boolean()),
+
+    // Поля для підтримки відповідей на повідомлення:
+    replyToId: v.optional(v.id("messages")),
+    replyToSender: v.optional(v.string()),
+    replyToText: v.optional(v.string()),
+
+    // Швидкі реакції емодзі
+    reactions: v.optional(
+      v.array(
+        v.object({
+          emoji: v.string(),
+          userId: v.id("users"),
+        })
+      )
+    ),
+  }).index("by_chat_room", ["chatRoomId"]),
+
+  typingIndicators: defineTable({
+    chatRoomId: v.id("chatRooms"),
+    userId: v.id("users"),
+    userName: v.string(),
+    lastTypedAt: v.number(),
+  })
+    .index("by_room", ["chatRoomId"])
+    .index("by_user_and_room", ["userId", "chatRoomId"]),
+});
