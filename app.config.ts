@@ -4,11 +4,12 @@ import { ConfigContext, ExpoConfig } from "expo/config";
 const EAS_PROJECT_ID = "486ba263-d184-4a0d-90f7-d087fadc7b32"; // Наприклад, "3137fc56-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 const PROJECT_SLUG = "modern-chat";
 const OWNER = "bobi_it_new"; // Ваш логін на expo.dev
+const SAFE_OWNER = OWNER.replace(/_/g, ""); // "bobiitnew" (iOS bundle identifier не може містити підкреслень '_')
 
 // Базова конфігурація Production
 const APP_NAME = "Modern Chat By Bobi";
-const BUNDLE_IDENTIFIER = `com.${OWNER}.modernchat.bobi`;
-const PACKAGE_NAME = `com.${OWNER}.modernchat.bobi`;
+const BUNDLE_IDENTIFIER = `com.${SAFE_OWNER}.modernchat.bobi`;
+const PACKAGE_NAME = `com.${SAFE_OWNER}.modernchat.bobi`;
 const SCHEME = "modernchat-by-bobi";
 
 // Шляхи до базових іконок
@@ -54,6 +55,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     android: {
       package: dynamicConfig.packageName,
       versionCode: 1,
+      icon: dynamicConfig.icon,
       adaptiveIcon: {
         backgroundColor: "#0F172A",
         foregroundImage: dynamicConfig.adaptiveIconForeground,
@@ -142,7 +144,7 @@ export const getDynamicAppConfig = (
       bundleIdentifier: `${BUNDLE_IDENTIFIER}.preview`,
       packageName: `${PACKAGE_NAME}.preview`,
       icon: "./assets/images/icons/icon-preview.jpg",
-      adaptiveIconForeground: ADAPTIVE_ICON_FOREGROUND,
+      adaptiveIconForeground: "./assets/images/icons/icon-preview.jpg",
       adaptiveIconBackground: ADAPTIVE_ICON_BACKGROUND,
       adaptiveIconMonochrome: ADAPTIVE_ICON_MONOCHROME,
       scheme: `${SCHEME}-preview`,
@@ -155,7 +157,7 @@ export const getDynamicAppConfig = (
     bundleIdentifier: BUNDLE_IDENTIFIER,
     packageName: PACKAGE_NAME,
     icon: ICON,
-    adaptiveIconForeground: ADAPTIVE_ICON_FOREGROUND,
+    adaptiveIconForeground: ICON,
     adaptiveIconBackground: ADAPTIVE_ICON_BACKGROUND,
     adaptiveIconMonochrome: ADAPTIVE_ICON_MONOCHROME,
     scheme: SCHEME,
