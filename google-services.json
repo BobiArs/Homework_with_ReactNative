@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "297023017398",
+    "project_id": "modernchatbybobi",
+    "storage_bucket": "modernchatbybobi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297023017398:android:1ffa021d30f66b80497117",
+        "android_client_info": {
+          "package_name": "com.modernchat.app.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADdIeqpKU1-C1LrlV15R1nSESiTj6Fr5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
