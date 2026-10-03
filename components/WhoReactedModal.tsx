@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants/theme";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Ionicons } from "@expo/vector-icons";
@@ -62,7 +63,7 @@ export const WhoReactedModal: React.FC<WhoReactedModalProps> = ({
 
             {!reactionUsers ? (
               <View className="py-8 items-center">
-                <ActivityIndicator size="small" color="#6366F1" />
+                <ActivityIndicator size="small" color={COLORS.primary} />
               </View>
             ) : reactionUsers.length === 0 ? (
               <Text className="text-textMuted text-center py-6">

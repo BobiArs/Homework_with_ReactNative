@@ -48,3 +48,6 @@ example
 service-account*.json
 *.keystore
 
+# Google OAuth & Firebase credentials
+client_secret*.json
+google-services.json

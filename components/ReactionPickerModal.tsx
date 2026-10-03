@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants/theme";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef } from "react";
 import {
@@ -123,7 +124,7 @@ export const ReactionPickerModal: React.FC<ReactionPickerModalProps> = ({
             top: pickerStyle.top,
             left: pickerStyle.left,
             maxWidth: PICKER_WIDTH,
-            backgroundColor: "#1C1C1E",
+            backgroundColor: COLORS.secondary,
             borderRadius: 32,
             paddingHorizontal: 8,
             paddingVertical: 6,

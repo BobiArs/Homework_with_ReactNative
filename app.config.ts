@@ -33,12 +33,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
   return {
     ...config,
-    name: APP_NAME,
+    name: dynamicConfig.name,
     slug: "modern-chat",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/icon.png",
-    scheme: "modernchat",
+    icon: dynamicConfig.icon,
+    scheme: dynamicConfig.scheme,
     userInterfaceStyle: "dark",
 
     android: {

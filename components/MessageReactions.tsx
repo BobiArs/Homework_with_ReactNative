@@ -56,10 +56,10 @@ const ReactionPill: React.FC<{
           borderWidth: 1,
           gap: 3,
           backgroundColor: item.hasReacted
-            ? "rgba(99, 102, 241, 0.22)"
+            ? "rgba(255, 102, 0, 0.22)"
             : "rgba(255, 255, 255, 0.08)",
           borderColor: item.hasReacted
-            ? "rgba(99, 102, 241, 0.7)"
+            ? "rgba(255, 102, 0, 0.7)"
             : "rgba(255, 255, 255, 0.15)",
         }}
       >
@@ -68,7 +68,7 @@ const ReactionPill: React.FC<{
           style={{
             fontSize: 11,
             fontWeight: "700",
-            color: item.hasReacted ? "#818CF8" : "#9CA3AF",
+            color: item.hasReacted ? "#FF6600" : "#A1A1AA",
           }}
         >
           {item.count}

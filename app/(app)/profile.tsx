@@ -108,8 +108,8 @@ export default function ProfileScreen() {
         </View>
 
         <View className="flex-1 bg-secondary border border-surfaceLight rounded-2xl p-4 items-center">
-          <View className="w-10 h-10 rounded-full bg-purple-500/20 items-center justify-center mb-2">
-            <Ionicons name="folder" size={20} color="#A855F7" />
+          <View className="w-10 h-10 rounded-full bg-primary/20 items-center justify-center mb-2">
+            <Ionicons name="folder" size={20} color={COLORS.primary} />
           </View>
           <Text className="text-white text-xl font-bold">
             {profileDetails?.stats.roomsCreatedCount ?? 0}
